@@ -1,5 +1,5 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef APPLICATION_HPP
+#define APPLICATION_HPP
 
 #pragma once
 
@@ -17,6 +17,9 @@ namespace Rubberduck
     private:
 
     };
+
+    // To be defined in CLIENT
+    Application* CreateApplication();
 }
 
 #endif
