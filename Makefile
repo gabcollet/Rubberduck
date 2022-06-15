@@ -1,19 +1,22 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/07 21:09:53 by gcollet           #+#    #+#              #
-#    Updated: 2022/06/15 12:20:11 by gcollet          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# ***************************************************************************** #
+#                  *#########                                                   #
+#                 ##........../##           KWAK!                               #
+#               *#,.......,##....#######  /                                     #
+#               ##........./....##////##                                        #
+#     ##          ##...........,##((##                                          #
+#    #.###/        ##,..........*                                               #
+#   #(.....(######(###*........,##                                              #
+#  ##.............................##      File    : Makefile                     #
+#  ##.    __       __  o       __  ##                                           #
+#  ##.   |_  |\ | | __ | |\ | |_    *#.   Created : gcollet                     #
+#   ##   |__ | \| |__| | | \| |__   ,#,             2022/06/15                  #
+#    ##.............................##                                          #
+#     /##........................*##      Updated : gcollet                     #
+#        ###/................*###.                  2022/06/15                  #
+#             ##############.                                                   #
+# ***************************************************************************** #
 
 NAME 			=	test
-
-INC_PATH		=	Rubberduck/
-INC_ALL			=	$(patsubst %,-I%,$(INC_PATH))
 
 RED				=	\033[31;1m
 YELLOW			=	\033[93;1m
@@ -22,35 +25,40 @@ BLUE			=	\033[34;1m
 END				=	\033[0m
 
 CC 				=	clang++
-CFLAGS			=	
+CFLAGS			=	-Wall -Werror -Wextra -std=c++11 -Isubmodule -IRubberduck
 
 RM				=	rm -rf
 
-SRCS_FILES		=	Sandbox.cpp Rubberduck/src/Application.cpp
+SRC_DIR		=	.
+OBJ_PATH	=	obj
+DIRS		=	$(shell find $(SRC_DIR) -type d)
+OBJ_DIRS	=	$(foreach d, $(DIRS), $(addprefix $(OBJ_PATH)/, $(d)))
+INCS		=	$(shell find $(SRC_DIR) -type f -name *.hpp)
+SRCS		=	$(shell find $(SRC_DIR) -type f -name *.cpp)
 
-OBJS_FILES		= 	$(SRCS_FILES:.cpp=.o)
-OBJS 			=	$(addprefix $(OBJS_PATH), $(OBJS_FILES))
-
-$(OBJS_PATH)%.o: %.cpp
-	$(CC) $(CFLAGS) $(INC_ALL) -c $< -o $@
-	@echo "$(YELLOW) CREATING OBJECTS \n $(END)"
-
-$(NAME):	$(OBJS_PATH) $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(INC_ALL)
-	@echo "$(GREEN) TESTER READY $(END)\n"
-
-$(OBJS_PATH):
-	mkdir -p $(OBJS_PATH)
-
-VPATH = Sandbox 
+OBJ_FILES		= 	$(SRCS:.cpp=.o)
+OBJS 			=	$(addprefix $(OBJ_PATH)/, $(OBJ_FILES))
 
 all:	$(NAME)
 
-debug:	CFLAGS += -Wall -Werror -Wextra -std=c++11 -g
+$(OBJ_PATH)/%.o: %.cpp
+	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
+	@echo "$(YELLOW) CREATING OBJECTS \n $(END)"
+
+$(NAME):	$(OBJ_PATH) $(OBJS)
+	$(CC) -o $(NAME) $(OBJS)
+	@echo "$(GREEN) TESTER READY $(END)\n"
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH) $(OBJ_DIRS) $(DIRS)
+
+VPATH = $(SRC_DIR) $(DIRS)
+
+debug:	CFLAGS += -g
 debug:	$(NAME)
 
 clean:
-	$(RM) $(OBJS_FILES) $(OBJS_PATH) 
+	$(RM) $(OBJ_PATH)
 	echo "$(RED) CLEAN DONE $(END)\\n"
 
 fclean: clean

@@ -1,0 +1,3 @@
+[submodule "Rubberduck/submodule/spdlog"]
+	path = Rubberduck/submodule/spdlog
+	url = https://github.com/gabime/spdlog.git

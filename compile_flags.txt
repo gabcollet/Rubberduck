@@ -2,3 +2,4 @@
 -Werror
 -Wextra
 -IRubberduck
+-Isubmodule
