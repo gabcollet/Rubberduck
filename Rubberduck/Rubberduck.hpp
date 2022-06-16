@@ -22,11 +22,10 @@
 #include <iostream>
 #include <memory>
 #include "src/Application.hpp"
-
-using std::cout;
+#include "src/Log.hpp"
 
 //Entry Point
 #include "src/EntryPoint.hpp"
 
-//Logging
-#include "src/Log.hpp"
+using std::cout;
+

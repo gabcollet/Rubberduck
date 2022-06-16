@@ -6,7 +6,7 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : log.cpp                    */
+/* ##.............................##      File    : Core.hpp                   */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
 /*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
@@ -16,22 +16,11 @@
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#include "Log.hpp"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#pragma once
 
-namespace Rubberduck
-{
+#include <string>
+#include <sstream>
+#include <functional>
+#include "src/Log.hpp"
 
-    std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-    std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
-
-    void Log::Init()
-    {
-        spdlog::set_pattern("%^[%T] %n: %v%$");
-        s_CoreLogger = spdlog::stdout_color_mt("RUBBERDUCK");
-        s_CoreLogger->set_level(spdlog::level::trace);
-
-        s_ClientLogger = spdlog::stdout_color_mt("APP");
-        s_ClientLogger->set_level(spdlog::level::trace);
-    }
-}
+#define BIT(x) (1 << x)
