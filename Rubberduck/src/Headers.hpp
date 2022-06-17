@@ -30,6 +30,9 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "glfw/glfw3.h"
+#include "spdlog/spdlog.h"
+
 #include "Log.hpp"
 #include "events/Event.hpp"
 #include "core.hpp"

@@ -20,7 +20,6 @@
 
 #include "headers.hpp"
 #include "src/events/Event.hpp"
-#include <glfw/GLFW/glfw3.h>
 
 namespace Rubberduck
 {

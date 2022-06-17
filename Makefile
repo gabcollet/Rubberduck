@@ -16,20 +16,36 @@
 #             ##############.                                                   #
 # ***************************************************************************** #
 
-NAME 			=	test
+NAME 		=	test
 
-RED				=	\033[31;1m
-YELLOW			=	\033[93;1m
-GREEN			=	\033[32;1m
-BLUE			=	\033[34;1m
-END				=	\033[0m
+RED			=	\033[31;1m
+YELLOW		=	\033[93;1m
+GREEN		=	\033[32;1m
+BLUE		=	\033[34;1m
+END			=	\033[0m
 
-CC 				=	clang++
-CFLAGS			=	-Wall -Werror -Wextra -std=c++11 -Isubmodule -IRubberduck
+CC 			=	clang++
+CFLAGS		=	-Wall -Wextra -std=c++11
+COBJS		=	$(CC) $(CFLAGS) $(INC)
+CNAME		=	$(CC) $(CFLAGS) $(DEP) $(FWRK)
 
-RM				=	rm -rf
+RM			=	rm -rf
 
-SRC_DIR		=	.
+# Frameworks
+_FWRK		=	Cocoa Opengl IOKit
+FWRK		=	$(patsubst %, -framework %, $(_FWRK))
+#
+
+# Includes directories
+_INC		=	submodule Rubberduck
+INC			=	$(patsubst %, -I%, $(_INC))
+#
+
+# Dependancies
+DEP			=	submodule/glfw/libglfw3.a
+#
+
+SRC_DIR		=	Rubberduck Sandbox
 OBJ_PATH	=	obj
 DIRS		=	$(shell find $(SRC_DIR) -type d)
 OBJ_DIRS	=	$(foreach d, $(DIRS), $(addprefix $(OBJ_PATH)/, $(d)))
@@ -42,15 +58,17 @@ OBJS 			=	$(addprefix $(OBJ_PATH)/, $(OBJ_FILES))
 all:	$(NAME)
 
 $(OBJ_PATH)/%.o: %.cpp
-	$(CC) $(CFLAGS) -I$(SRC_DIR) -c $< -o $@
+	$(COBJS) -c $< -o $@
 	@echo "$(YELLOW) CREATING OBJECTS \n $(END)"
 
 $(NAME):	$(OBJ_PATH) $(OBJS)
-	$(CC) -o $(NAME) submodule/glfw/lib-universal/libglfw3.a $(OBJS)
+#$(COBJS) Rubberduck/src/EntryPoint.hpp -o obj/Rubberduck/src/EntryPoint.hpp.gch
+	$(CNAME) -o $(NAME) $(OBJS)
 	@echo "$(GREEN) TESTER READY $(END)\n"
 
 $(OBJ_PATH):
-	mkdir -p $(OBJ_PATH) $(OBJ_DIRS) $(DIRS)
+	@mkdir -p $(OBJ_PATH) $(OBJ_DIRS)
+#mkdir -p $(OBJ_PATH) $(OBJ_DIRS) $(DIRS)
 
 VPATH = $(SRC_DIR) $(DIRS)
 
@@ -58,12 +76,12 @@ debug:	CFLAGS += -g
 debug:	$(NAME)
 
 clean:
-	$(RM) $(OBJ_PATH)
-	echo "$(RED) CLEAN DONE $(END)\\n"
+	@$(RM) $(OBJ_PATH)
+	@echo "$(RED) CLEAN DONE $(END)\\n"
 
 fclean: clean
-	$(RM) $(NAME)
-	echo "$(RED) FCLEAN DONE $(END)\\n"
+	@$(RM) $(NAME)
+	@echo "$(RED) FCLEAN DONE $(END)\\n"
 
 re: fclean all
 
