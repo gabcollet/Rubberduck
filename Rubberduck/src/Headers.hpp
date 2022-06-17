@@ -6,21 +6,30 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Core.hpp                   */
+/* ##.............................##      File    : headers.hp                 */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/17                 */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/17                 */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
 #pragma once
 
+#include <iostream>
+#include <memory>
+#include <utility>
+#include <algorithm>
+#include <functional>
+
 #include <string>
 #include <sstream>
-#include <functional>
-#include "src/Log.hpp"
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
-#define BIT(x) (1 << x)
+#include "Log.hpp"
+#include "Application.hpp"
+#include "events/Event.hpp"

@@ -16,8 +16,8 @@
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#include "Application.hpp"
-#include "src/events/ApplicationEvent.hpp"
+#include "Headers.hpp"
+#include "events/ApplicationEvent.hpp"
 
 namespace Rubberduck
 {

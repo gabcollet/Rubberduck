@@ -18,14 +18,7 @@
 
 #pragma once
 
-//Internal Use
-#include <iostream>
-#include <memory>
-#include "src/Application.hpp"
-#include "src/Log.hpp"
-
 //Entry Point
 #include "src/EntryPoint.hpp"
 
-using std::cout;
 
