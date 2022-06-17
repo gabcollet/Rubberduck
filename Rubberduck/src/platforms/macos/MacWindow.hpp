@@ -6,48 +6,52 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Applicatio                 */
+/* ##.............................##      File    : Windows.hp                 */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/17                 */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/17                 */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#include "Headers.hpp"
-#include "events/ApplicationEvent.hpp"
+#pragma once
+
+#include "../../Headers.hpp"
+#include "src/events/Event.hpp"
+#include <glfw/glfw3.h>
 
 namespace Rubberduck
 {
-    
-    Application::Application()
+    class MacWindow : public Window
     {
-		m_Window = std::unique_ptr<Window>(Window::Create());
-    }
+    public:
+        MacWindow(const WindowProps& props);
+        virtual ~MacWindow();
 
-    Application::~Application()
-    {
+        void OnUpdate() override;
 
-    }
+        inline unsigned int GetWidth() const override { return m_Data.Width; }
+        inline unsigned int GetHeight() const override { return m_Data.Height; }
 
-    void Application::Run()
-    {
-		while (m_Running)
+        //Window attributes
+		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+        void SetVSync(bool enabled) override;
+        bool IsVSync() const override;
+
+    private:
+        GLFWwindow* m_Window;
+
+		struct WindowData
 		{
-			m_Window->OnUpdate();
-		}
-        // WindowResizeEvent e(1200, 700);
-        // if (e.IsInCategory(EventCategoryApplication))
-        // {
-        //     RUBBERDUCK_TRACE(e);
-        // }
-        // if (e.IsInCategory(EventCategoryInput))
-        // {
-        //     RUBBERDUCK_TRACE(e);
-        // }
+			std::string Title;
+			unsigned int Width, Height;
+			bool VSync;
 
-        // while (true);
-    }
+			EventCallbackFn EventCallback;
+		};
+
+		WindowData m_Data;
+    };
 }

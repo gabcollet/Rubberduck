@@ -29,9 +29,11 @@ CFLAGS			=	-Wall -Werror -Wextra -std=c++11 -Isubmodule -IRubberduck
 
 RM				=	rm -rf
 
-SRC_DIR		=	.
+SRC_DIR		=	src
+DEP_DIR		= 	submodule
 OBJ_PATH	=	obj
 DIRS		=	$(shell find $(SRC_DIR) -type d)
+DEP_DIRS	=	$(shell find $(DEP_DIR) -type d)
 OBJ_DIRS	=	$(foreach d, $(DIRS), $(addprefix $(OBJ_PATH)/, $(d)))
 INCS		=	$(shell find $(SRC_DIR) -type f -name *.hpp)
 SRCS		=	$(shell find $(SRC_DIR) -type f -name *.cpp)

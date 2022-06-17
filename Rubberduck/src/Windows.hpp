@@ -53,18 +53,4 @@ namespace Rubberduck
 
         static Window* Create(const WindowProps& props = WindowProps());
     };
-
-    class MacWindow : public Window
-    {
-    public:
-        MacWindow(const WindowProps& props);
-        virtual ~MacWindow();
-
-        void OnUpdate() override;
-
-        inline unsigned int GetWidth() const override { return _data.width}
-
-    private:
-        virtual 
-    };
 }

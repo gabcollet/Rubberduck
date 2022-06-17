@@ -33,3 +33,5 @@
 #include "Log.hpp"
 #include "Application.hpp"
 #include "events/Event.hpp"
+#include "Windows.hpp"
+#include "core.hpp"
