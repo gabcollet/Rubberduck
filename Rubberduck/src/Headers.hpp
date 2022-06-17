@@ -31,5 +31,5 @@
 #include <unordered_set>
 
 #include "Log.hpp"
-#include "Application.hpp"
 #include "events/Event.hpp"
+#include "core.hpp"

@@ -18,9 +18,8 @@
 
 #pragma once
 
-#include "../Headers.hpp"
-
-#define BIT(x) (1 << x)
+#include "../headers.hpp"
+#include "../core.hpp"
 
 namespace Rubberduck 
 {

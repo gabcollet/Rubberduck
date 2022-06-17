@@ -18,7 +18,8 @@
 
 #pragma once
 
-#include "Headers.hpp"
+#include "headers.hpp"
+#include "Application.hpp"
 
 extern Rubberduck::Application* Rubberduck::CreateApplication();
 

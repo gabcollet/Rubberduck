@@ -16,15 +16,14 @@
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#include "Headers.hpp"
-#include "events/ApplicationEvent.hpp"
+#include "Application.hpp"
 
 namespace Rubberduck
 {
     
     Application::Application()
     {
-
+        _Window = std::unique_ptr<Window>(Window::Create());
     }
 
     Application::~Application()
@@ -34,7 +33,7 @@ namespace Rubberduck
 
     void Application::Run()
     {
-        WindowResizeEvent e(1200, 700);
+/*         WindowResizeEvent e(1200, 700);
         if (e.IsInCategory(EventCategoryApplication))
         {
             RUBBERDUCK_TRACE(e);
@@ -43,7 +42,10 @@ namespace Rubberduck
         {
             RUBBERDUCK_TRACE(e);
         }
-
-        while (true);
+ */
+        while (_running)
+        {
+            _Window->OnUpdate();
+        }
     }
 }

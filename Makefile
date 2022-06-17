@@ -46,7 +46,7 @@ $(OBJ_PATH)/%.o: %.cpp
 	@echo "$(YELLOW) CREATING OBJECTS \n $(END)"
 
 $(NAME):	$(OBJ_PATH) $(OBJS)
-	$(CC) -o $(NAME) $(OBJS)
+	$(CC) -o $(NAME) submodule/glfw/lib-universal/libglfw3.a $(OBJS)
 	@echo "$(GREEN) TESTER READY $(END)\n"
 
 $(OBJ_PATH):

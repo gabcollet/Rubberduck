@@ -18,9 +18,9 @@
 
 #pragma once
 
-#include "Headers.hpp"
+#include "headers.hpp"
 #include "src/events/Event.hpp"
-#include <glfw/glfw3.h>
+#include <glfw/GLFW/glfw3.h>
 
 namespace Rubberduck
 {
@@ -62,9 +62,29 @@ namespace Rubberduck
 
         void OnUpdate() override;
 
-        inline unsigned int GetWidth() const override { return _data.width}
+        inline unsigned int GetWidth() const override { return _data._width; }
+        inline unsigned int GetHeight() const override { return _data._height; }
+        
+        inline void SetEventCallback(const EventCallbackFn& callback) override
+        { _data._eventcallback = callback; }
+        void SetVSync(bool enabled) override;
+        bool IsVSync() const override;
 
     private:
-        virtual 
+        virtual void Init(const WindowProps& props);
+        virtual void Shutdown();
+    private:
+        GLFWwindow* _Window;
+
+        struct WindowData
+        {
+            std::string _title;
+            unsigned int _width, _height;
+            bool _vsync;
+
+            EventCallbackFn _eventcallback;
+        };
+
+        WindowData _data;
     };
 }

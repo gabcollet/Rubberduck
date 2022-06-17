@@ -6,31 +6,24 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : log.cpp                    */
+/* ##.............................##      File    : core.hpp                   */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/17 15:00:08        */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/17 15:00:08        */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#include "Log.hpp"
+#pragma once
 
-namespace Rubberduck
-{
+#ifdef RUBBERDUCK_ENABLE_ASSERTS
+ 	#define RUBBERDUCK_ASSERT(x, ...) { if(!(x)) { RUBBERDUCK_ERROR("Assertion Failed: {0}", __VA_ARGS__); raise(SIGTRAP); } } 
+ 	#define RUBBERDUCK_CORE_ASSERT(x, ...) { if(!(x)) { RUBBERDUCK_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); raise(SIGTRAP); } } 
+#else
+ 	#define RUBBERDUCK_ASSERT(x, ...)
+ 	#define RUBBERDUCK_CORE_ASSERT(x, ...)
+#endif 
 
-    std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
-    std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
-
-    void Log::Init()
-    {
-        spdlog::set_pattern("%^[%T] %n: %v%$");
-        s_CoreLogger = spdlog::stdout_color_mt("RUBBERDUCK");
-        s_CoreLogger->set_level(spdlog::level::trace);
-
-        s_ClientLogger = spdlog::stdout_color_mt("APP");
-        s_ClientLogger->set_level(spdlog::level::trace);
-    }
-}
+#define BIT(x) (1 << x)

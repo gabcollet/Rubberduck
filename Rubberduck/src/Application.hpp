@@ -21,6 +21,10 @@
 
 #pragma once
 
+#include "headers.hpp"
+#include "Windows.hpp"
+#include "events/ApplicationEvent.hpp"
+
 namespace Rubberduck
 {
     
@@ -33,7 +37,8 @@ namespace Rubberduck
         void Run();
 
     private:
-
+        std::unique_ptr<Window> _Window;
+        bool _running = true;
     };
 
     // To be defined in CLIENT
