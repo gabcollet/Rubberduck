@@ -30,6 +30,10 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#ifdef __APPLE__
+/* Defined before OpenGL and GLUT includes to avoid deprecation messages */
+#define GL_SILENCE_DEPRECATION
+#endif
 #include "glfw/glfw3.h"
 #include "spdlog/spdlog.h"
 

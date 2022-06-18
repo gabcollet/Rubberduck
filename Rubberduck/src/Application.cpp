@@ -45,6 +45,8 @@ namespace Rubberduck
  */
         while (_running)
         {
+            glClearColor(0, 0, 1, 0);
+            glClear(GL_COLOR_BUFFER_BIT);
             _Window->OnUpdate();
         }
     }

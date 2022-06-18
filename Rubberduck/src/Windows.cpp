@@ -42,6 +42,7 @@ namespace Rubberduck
     void MacWindow::OnUpdate() 
     {
         glfwPollEvents();
+        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(_Window);
     }
     

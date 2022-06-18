@@ -30,9 +30,9 @@ int main(int argc, char** argv)
 
     Rubberduck::Log::Init();
     RUBBERDUCK_CORE_WARN("Initialized Log");
-    int a = 5;
+    /* int a = 5;
     RUBBERDUCK_INFO("Hello! Var={0}", a);
-    RUBBERDUCK_CORE_CRITICAL("Criticality!!!");
+    RUBBERDUCK_CORE_CRITICAL("Criticality!!!"); */
     
     auto app = Rubberduck::CreateApplication();
     app->Run();

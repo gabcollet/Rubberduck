@@ -31,7 +31,7 @@ namespace Rubberduck
         inline unsigned int GetWidth() const { return _width; }
         inline unsigned int GetHeight() const { return _height; }
 
-        // Should never be used for anything else then debuggin 
+        // Should never be used for anything else then debugging 
         std::string ToString() const override
         {
             std::stringstream ss;
