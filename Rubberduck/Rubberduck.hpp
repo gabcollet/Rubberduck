@@ -18,6 +18,10 @@
 
 #pragma once
 
+#include "src/Application.hpp"
+#include "src/Layer.hpp"
+#include "src/Log.hpp"
+
 //Entry Point
 #include "src/EntryPoint.hpp"
 

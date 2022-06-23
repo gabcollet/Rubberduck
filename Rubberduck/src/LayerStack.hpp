@@ -6,51 +6,45 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Applicatio                 */
+/* ##.............................##      File    : LayerStack.hpp             */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/23 15:37:40        */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/23 15:37:40        */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef LAYERSTACK_HPP
+#define LAYERSTACK_HPP
 
 #pragma once
 
 #include "headers.hpp"
-#include "Windows.hpp"
-#include "events/ApplicationEvent.hpp"
-#include "LayerStack.hpp"
+#include "Layer.hpp"
 
 namespace Rubberduck
 {
-    
-    class Application
+
+    class LayerStack
     {
     public:
-        Application();
-        ~Application();
-
-        void Run();
-
-        void OnEvent(Event& e);
+        LayerStack();
+        ~LayerStack();
 
         void PushLayer(Layer* layer);
-        void PushOverlay(Layer* layer);
+        void PushOverlay(Layer* overlay);
+        void PopLayer(Layer* layer);
+        void PopOverlay(Layer* overlay);
+
+        std::vector<Layer*>::iterator begin() { return _layers.begin(); }
+        std::vector<Layer*>::iterator end() { return _layers.end(); }
     private:
-        bool OnWindowClose(WindowCloseEvent& e);
+        std::vector<Layer*> _layers;
+        std::vector<Layer*>::iterator _layerinsert;
 
-        std::unique_ptr<Window> _Window;
-        bool _running = true;
-        LayerStack _layerstack;
     };
-
-    // To be defined in CLIENT
-    Application* CreateApplication();
 }
 
 #endif

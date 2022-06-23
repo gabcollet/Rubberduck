@@ -6,51 +6,43 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Applicatio                 */
+/* ##.............................##      File    : Layer.hpp                  */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/23 15:37:35        */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/23 15:37:35        */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef LAYER_HPP
+#define LAYER_HPP
 
 #pragma once
 
 #include "headers.hpp"
-#include "Windows.hpp"
-#include "events/ApplicationEvent.hpp"
-#include "LayerStack.hpp"
+#include "events/Event.hpp"
 
 namespace Rubberduck
 {
-    
-    class Application
+
+    class Layer
     {
     public:
-        Application();
-        ~Application();
+        Layer(const std::string& name = "Layer");
+        virtual ~Layer();
 
-        void Run();
+        virtual void OnAttach() {}
+        virtual void OnDetach() {}
+        virtual void OnUpdate() {}
+        virtual void OnEvent(Event& event) {}
 
-        void OnEvent(Event& e);
+        inline const std::string& GetName() const { return _debugname; }
 
-        void PushLayer(Layer* layer);
-        void PushOverlay(Layer* layer);
     private:
-        bool OnWindowClose(WindowCloseEvent& e);
-
-        std::unique_ptr<Window> _Window;
-        bool _running = true;
-        LayerStack _layerstack;
+        std::string _debugname;
     };
-
-    // To be defined in CLIENT
-    Application* CreateApplication();
 }
 
 #endif

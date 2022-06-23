@@ -6,51 +6,29 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Applicatio                 */
+/* ##.............................##      File    : Layer.cpp                  */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/23 15:37:29        */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/23 15:37:29        */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
-
-#pragma once
-
-#include "headers.hpp"
-#include "Windows.hpp"
-#include "events/ApplicationEvent.hpp"
-#include "LayerStack.hpp"
+#include "Layer.hpp"
 
 namespace Rubberduck
 {
-    
-    class Application
+
+    Layer::Layer(const std::string& debugName) :
+        _debugname(debugName)
     {
-    public:
-        Application();
-        ~Application();
 
-        void Run();
+    }
 
-        void OnEvent(Event& e);
+    Layer::~Layer()
+    {
 
-        void PushLayer(Layer* layer);
-        void PushOverlay(Layer* layer);
-    private:
-        bool OnWindowClose(WindowCloseEvent& e);
-
-        std::unique_ptr<Window> _Window;
-        bool _running = true;
-        LayerStack _layerstack;
-    };
-
-    // To be defined in CLIENT
-    Application* CreateApplication();
+    }
 }
-
-#endif

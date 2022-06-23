@@ -51,9 +51,10 @@ namespace Rubberduck
 
     class Event
     {
-        friend class EventDispatcher;
         
     public:
+        bool Handled = false;
+
         virtual EventType   GetEventType() const = 0;
         virtual const char* GetName() const = 0;
         virtual int         GetCategoryFlags() const = 0;
@@ -63,9 +64,6 @@ namespace Rubberduck
         {
             return GetCategoryFlags()& category;
         }
-
-    protected:
-        bool _handled = false;
     };
 
     class EventDispatcher
@@ -81,7 +79,7 @@ namespace Rubberduck
         {
             if (_event.GetEventType() == T::GetStaticType())
             {
-                _event._handled = func(*(T*)&_event);
+                _event.Handled = func(*(T*)&_event);
                 return true;
             }
             return false;

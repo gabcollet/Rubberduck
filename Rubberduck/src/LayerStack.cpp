@@ -6,51 +6,56 @@
 /*    ##          ##...........,##((##                                         */
 /*   #.###/        ##,..........*                                              */
 /*  #(.....(######(###*........,##                                             */
-/* ##.............................##      File    : Applicatio                 */
+/* ##.............................##      File    : LayerStack.cpp             */
 /* ##.    __       __  o       __  ##                                          */
 /* ##.   |_  |\ | | __ | |\ | |_    *#.   Created : Gabcollet                  */
-/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/16                 */
+/*  ##   |__ | \| |__| | | \| |__   ,#,             2022/06/23 15:37:44        */
 /*   ##.............................##                                         */
 /*    /##........................*##      Updated : Gabcollet                  */
-/*       ###/................*###.                  2022/06/16                 */
+/*       ###/................*###.                  2022/06/23 15:37:44        */
 /*            ##############.                                                  */
 /* *************************************************************************** */
 
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
-
-#pragma once
-
-#include "headers.hpp"
-#include "Windows.hpp"
-#include "events/ApplicationEvent.hpp"
 #include "LayerStack.hpp"
 
 namespace Rubberduck
 {
-    
-    class Application
+
+    LayerStack::LayerStack()
     {
-    public:
-        Application();
-        ~Application();
+        _layerinsert = _layers.begin();
+    }
 
-        void Run();
-
-        void OnEvent(Event& e);
-
-        void PushLayer(Layer* layer);
-        void PushOverlay(Layer* layer);
-    private:
-        bool OnWindowClose(WindowCloseEvent& e);
-
-        std::unique_ptr<Window> _Window;
-        bool _running = true;
-        LayerStack _layerstack;
-    };
-
-    // To be defined in CLIENT
-    Application* CreateApplication();
+    LayerStack::~LayerStack()
+    {
+        for (Layer* layer : _layers)
+            delete layer;
+    }
+    
+    void LayerStack::PushLayer(Layer* layer) 
+    {
+        _layerinsert = _layers.emplace(_layerinsert, layer);
+    }
+    
+    void LayerStack::PushOverlay(Layer* overlay) 
+    {
+        _layers.emplace_back(overlay);
+    }
+    
+    void LayerStack::PopLayer(Layer* layer) 
+    {
+        auto it = std::find(_layers.begin(), _layers.end(), layer);
+        if (it != _layers.end())
+        {
+            _layers.erase(it);
+            _layerinsert--;
+        }
+    }
+    
+    void LayerStack::PopOverlay(Layer* overlay) 
+    {
+        auto it = std::find(_layers.begin(), _layers.end(), overlay);
+        if (it != _layers.end())
+            _layers.erase(it);
+    }
 }
-
-#endif

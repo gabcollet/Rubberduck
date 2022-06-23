@@ -36,20 +36,14 @@ namespace Rubberduck
 
     void Application::Run()
     {
-/*         WindowResizeEvent e(1200, 700);
-        if (e.IsInCategory(EventCategoryApplication))
-        {
-            RUBBERDUCK_TRACE(e);
-        }
-        if (e.IsInCategory(EventCategoryInput))
-        {
-            RUBBERDUCK_TRACE(e);
-        }
- */
         while (_running)
         {
             glClearColor(0, 0, 1, 0);
             glClear(GL_COLOR_BUFFER_BIT);
+
+            for (Layer* layer : _layerstack)
+                layer->OnUpdate();
+
             _Window->OnUpdate();
         }
     }
@@ -61,6 +55,23 @@ namespace Rubberduck
 
         //Display Events on log
         RUBBERDUCK_CORE_TRACE("{0}", e);
+
+        for (auto it = _layerstack.end(); it != _layerstack.begin();)
+        {
+            (*--it)->OnEvent(e);
+            if (e.Handled)
+                break;
+        }
+    }
+    
+    void Application::PushLayer(Layer* layer) 
+    {
+        _layerstack.PushLayer(layer);
+    }
+    
+    void Application::PushOverlay(Layer* layer) 
+    {
+        _layerstack.PushOverlay(layer);
     }
     
     bool Application::OnWindowClose(WindowCloseEvent& e) 

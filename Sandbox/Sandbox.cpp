@@ -18,10 +18,29 @@
 
 #include <Rubberduck.hpp>
 
+class ExampleLayer : public Rubberduck::Layer
+{
+public:
+    ExampleLayer() : Layer("Example") {}
+
+    void OnUpdate() override
+    {
+        RUBBERDUCK_INFO("Examplelayer::Update");
+    }
+
+    void OnEvent(Rubberduck::Event& event) override
+    {
+        RUBBERDUCK_TRACE("{0}", event);
+    }
+};
+
 class Sandbox : public Rubberduck::Application
 {
 public:
-    Sandbox(){}
+    Sandbox()
+    {
+        PushLayer(new ExampleLayer());
+    }
     ~Sandbox(){}
 };
 
