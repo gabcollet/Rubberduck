@@ -36,7 +36,10 @@ namespace Rubberduck
 
         void Run();
 
+        void OnEvent(Event& e);
     private:
+        bool OnWindowClose(WindowCloseEvent& e);
+
         std::unique_ptr<Window> _Window;
         bool _running = true;
     };

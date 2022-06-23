@@ -82,8 +82,9 @@ namespace Rubberduck
             if (_event.GetEventType() == T::GetStaticType())
             {
                 _event._handled = func(*(T*)&_event);
-                return false;
+                return true;
             }
+            return false;
         }
 
     private:
