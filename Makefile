@@ -25,9 +25,10 @@ BLUE		=	\033[34;1m
 END			=	\033[0m
 
 CC 			=	clang++
-CFLAGS		=	-Wall -Wextra -std=c++11
+CFLAGS		=	-Wall -Wextra -std=c++11 -ldl
 COBJS		=	$(CC) $(CFLAGS) $(INC)
-CNAME		=	$(CC) $(CFLAGS) $(DEP) $(FWRK)
+# CNAME		=	$(CC) $(CFLAGS) $(DEP) $(FWRK)
+CNAME		=	$(CC) $(CFLAGS) $(DEP) 
 
 RM			=	rm -rf
 
@@ -42,7 +43,8 @@ INC			=	$(patsubst %, -I%, $(_INC))
 #
 
 # Dependancies
-DEP			=	submodule/glfw/libglfw3.a
+DEP			=	submodule/glfw/libglfw3.a \
+				submodule/glad/src/glad.c
 #
 
 SRC_DIR		=	Rubberduck Sandbox
@@ -72,6 +74,9 @@ $(OBJ_PATH):
 
 VPATH = $(SRC_DIR) $(DIRS)
 
+linux: CFLAGS += -lglfw -lGL -g
+linux: $(NAME)
+
 debug:	CFLAGS += -g
 debug:	$(NAME)
 
@@ -85,6 +90,8 @@ fclean: clean
 
 re: fclean all
 
+relinux: fclean linux
+
 redebug: fclean debug
 
 git: fclean
@@ -94,4 +101,4 @@ git: fclean
 	git commit -m "$$COMMIT"
 	git push
 
-.PHONY: all clean fclean re debug redebug
+.PHONY: all clean fclean re debug redebug linux relinux

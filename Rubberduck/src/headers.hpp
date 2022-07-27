@@ -34,6 +34,7 @@
 /* Defined before OpenGL and GLUT includes to avoid deprecation messages */
 #define GL_SILENCE_DEPRECATION
 #endif
+#include "glad/include/glad/glad.h"
 #include "glfw/glfw3.h"
 #include "spdlog/spdlog.h"
 

@@ -30,7 +30,7 @@ public:
 
     void OnEvent(Rubberduck::Event& event) override
     {
-        RUBBERDUCK_TRACE("{0}", event);
+        RUBBERDUCK_TRACE("Examplelayer::Event: {0}", event);
     }
 };
 

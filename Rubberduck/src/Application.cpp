@@ -54,7 +54,7 @@ namespace Rubberduck
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FM(OnWindowClose));
 
         //Display Events on log
-        RUBBERDUCK_CORE_TRACE("{0}", e);
+        // RUBBERDUCK_CORE_TRACE("{0}", e);
 
         for (auto it = _layerstack.end(); it != _layerstack.begin();)
         {

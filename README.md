@@ -1,7 +1,7 @@
 # Rubberduck
 Rubberduck game engine
 
-https://rubberduckengine.com/
+Site is currently down :'( - https://rubberduckengine.com/ 
 
 ```
                  *#########                                                  

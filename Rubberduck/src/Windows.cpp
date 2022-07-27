@@ -20,6 +20,8 @@
 #include "events/KeyEvent.hpp"
 #include "events/MouseEvent.hpp"
 #include "events/ApplicationEvent.hpp"
+#include "glfw/glfw3.h"
+#include "src/core.hpp"
 
 #define RUBBERDUCK_ENABLE_ASSERTS
 
@@ -81,13 +83,16 @@ namespace Rubberduck
         {
             int success = glfwInit();
             RUBBERDUCK_CORE_ASSERT(success, "Could not initialize GLFW!");
-            //This line is to silence the variable not used error.
+            (void) success;
             glfwSetErrorCallback(GLFWErrorCallback);
             s_GLFWInitialized = true;
         }
 
         _Window = glfwCreateWindow((int)props._width, (int)props._height, _data._title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(_Window);
+        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        RUBBERDUCK_CORE_ASSERT(status, "Could not initialize GLAD!");
+        (void) status;
         glfwSetWindowUserPointer(_Window, &_data);
         SetVSync(true);
 
